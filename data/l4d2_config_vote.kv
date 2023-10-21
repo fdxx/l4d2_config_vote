@@ -1,0 +1,140 @@
+"选择投票类型"
+{
+	"幸存者和特感回血"
+	{
+		"Type"			"ServerCommand"
+		"MenuTeamFlags"	"12"
+		"VoteTeamFlags"	"12"
+		"AdminOneVotePassed" "0"
+		"AdminOneVoteAgainst" "0"
+		"Description"	"幸存者和特感回血?"
+		"Command"		"sm_rehp sur;sm_rehp si"
+	}
+
+	"地图投票"
+	{
+		"Type"			"ExternalVote"
+		"MenuTeamFlags"	"12"
+		"Command"		"sm_votemap"
+	}
+
+	"服务器最大玩家数"
+	{
+		"MenuTeamFlags" "14"
+
+		"6"
+		{
+			"Type"			"ServerCommand"
+			"MenuTeamFlags"	"14"
+			"VoteTeamFlags"	"14"
+			"Description"	"服务器最大玩家数: 6 ?"
+			"Command"		"sm_cvar sv_maxplayers 6"
+		}
+		"7"
+		{
+			"Type"			"ServerCommand"
+			"MenuTeamFlags"	"14"
+			"VoteTeamFlags"	"14"
+			"Description"	"服务器最大玩家数: 7 ?"
+			"Command"		"sm_cvar sv_maxplayers 7"
+		}
+	}
+
+	"特感投票"
+	{
+		"MenuTeamFlags" "12"
+
+		"特感数量"
+		{
+			"MenuTeamFlags" "12"
+
+			"1 特"
+			{
+				"Type"			"ServerCommand"
+				"MenuTeamFlags"	"12"
+				"VoteTeamFlags"	"12"
+				"Description"	"特感数量: 1 特?"
+				"Command"		"exec \"sivote/si_limit/1si.cfg\""
+			}
+			"2 特"
+			{
+				"Type"			"ServerCommand"
+				"MenuTeamFlags"	"12"
+				"VoteTeamFlags"	"12"
+				"Description"	"特感数量: 2 特?"
+				"Command"		"exec \"sivote/si_limit/2si.cfg\""
+			}
+		}
+
+		"特感刷新时间"
+		{
+			"MenuTeamFlags" "12"
+
+			"1 秒"
+			{
+				"Type"			"ServerCommand"
+				"MenuTeamFlags"	"12"
+				"VoteTeamFlags"	"12"
+				"Description"	"特感刷新时间: 1 秒?"
+				"Command"		"sm_cvar l4d2_si_spawn_control_spawn_time 1"
+			}
+			"2 秒"
+			{
+				"Type"			"ServerCommand"
+				"MenuTeamFlags"	"12"
+				"VoteTeamFlags"	"12"
+				"Description"	"特感刷新时间: 2 秒?"
+				"Command"		"sm_cvar l4d2_si_spawn_control_spawn_time 2"
+			}
+		}
+
+		"其他特感投票"
+		{
+			"MenuTeamFlags" "12"
+
+			"特感攻击性补丁"
+			{
+				"MenuTeamFlags" "4"
+
+				"开启"
+				{
+					"Type"			"ServerCommand"
+					"MenuTeamFlags"	"4"
+					"VoteTeamFlags"	"4"
+					"Description"	"特感攻击性补丁: 开启?"
+					"Command"		"sm_cvar aggresive_specials_patch_enable 1"
+				}
+				"关闭"
+				{
+					"Type"			"ServerCommand"
+					"MenuTeamFlags"	"4"
+					"VoteTeamFlags"	"4"
+					"Description"	"特感攻击性补丁: 关闭?"
+					"Command"		"sm_cvar aggresive_specials_patch_enable 0"
+				}
+			}
+
+			"击杀回血"
+			{
+				"MenuTeamFlags" "12"
+
+				"击杀特感回1血"
+				{
+					"Type"			"ServerCommand"
+					"MenuTeamFlags"	"12"
+					"VoteTeamFlags"	"12"
+					"Description"	"击杀特感回 1 血?"
+					"Command"		"exec \"sivote/rehp/1.cfg\""
+				}
+				"击杀特感回2血"
+				{
+					"Type"			"ServerCommand"
+					"MenuTeamFlags"	"12"
+					"VoteTeamFlags"	"12"
+					"Description"	"击杀特感回 2 血?"
+					"Command"		"exec \"sivote/rehp/2.cfg\""
+				}
+			}
+		}
+	}
+}
