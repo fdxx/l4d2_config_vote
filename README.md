@@ -17,7 +17,7 @@ Generate a vote menu from a configuration file and vote it.
 ### Type
 - `ServerCommand`：Execute server command or admin command after vote is passed.
 - `ClientCommand`：Execute client command after the vote is passed.
-- `ExternalVote`：Call vote command provided by other plugin after menu selection. Valid item for this type：`MenuTeamFlags`, `Command`.
+- `ExternalVote`：Call vote command provided by other plugin after menu selection. Valid item for this type：**MenuTeamFlags**, **Command**.
 - `CheatCommand`：Execute server cheat command after vote is passed.
 
 ### MenuTeamFlags (Optional)
