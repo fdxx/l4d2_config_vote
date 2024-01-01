@@ -6,7 +6,7 @@
 #include <l4d2_source_keyvalues>	// https://github.com/fdxx/l4d2_source_keyvalues
 #include <multicolors>
 
-#define VERSION "0.5"
+#define VERSION "0.6"
 #define CFG_FILE "data/l4d2_config_vote.kv"
 #define COMMAND_MAX_LENGTH 511
 
@@ -39,7 +39,7 @@ SourceKeyValues
 	g_kvSelect[MAXPLAYERS+1],
 	g_kvRoot;
 
-ConVar g_cvAdminTeamFlags;
+ConVar g_cvAdminTeamFlags, g_cvPrintMsg;
 ConfigData g_cfgData[MAXPLAYERS+1];
 
 public Plugin myinfo = 
@@ -59,6 +59,9 @@ public void OnPluginStart()
 {
 	CreateConVar("l4d2_config_vote_version", VERSION, "version", FCVAR_NOTIFY | FCVAR_DONTRECORD);
 	g_cvAdminTeamFlags = CreateConVar("l4d2_config_vote_adminteamflags", "1", "Admin bypass TeamFlags.");
+	g_cvPrintMsg = CreateConVar("l4d2_config_vote_printmsg", "1", "Whether print hint message to clients.");
+
+	AutoExecConfig(true, "l4d2_config_vote");
 }
 
 public void OnConfigsExecuted()
@@ -69,10 +72,9 @@ public void OnConfigsExecuted()
 
 	Init();
 	RegAdminCmdEx("sm_votecfg_reload", Cmd_Reload, ADMFLAG_ROOT, "Reload config file.");
-	RegConsoleCmdEx("sm_votes", Cmd_Vote);
 	RegConsoleCmdEx("sm_v", Cmd_Vote);
-	RegConsoleCmdEx("sm_vote", Cmd_Vote);
-	RegConsoleCmdEx("sm_sivote", Cmd_Vote);
+	RegConsoleCmdEx("sm_vt", Cmd_Vote);
+	RegConsoleCmdEx("sm_votes", Cmd_Vote);
 }
 
 Action Cmd_Reload(int client, int args)
@@ -206,11 +208,13 @@ void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2
 	{
 		case VoteAction_Start:
 		{
-			CPrintToChatAll("{blue}[Vote] {olive}%N {default}发起了一个投票.", param1);
+			if (g_cvPrintMsg.BoolValue)
+				CPrintToChatAll("{blue}[Vote] {olive}%N {default}发起了一个投票.", param1);
 		}
 		case VoteAction_PlayerVoted:
 		{
-			CPrintToChatAll("{olive}%N {default}已投票", param1);
+			if (g_cvPrintMsg.BoolValue)
+				CPrintToChatAll("{olive}%N {default}已投票", param1);
 
 			if (!CheckCommandAccess(param1, "sm_admin", ADMFLAG_ROOT))
 				return;
