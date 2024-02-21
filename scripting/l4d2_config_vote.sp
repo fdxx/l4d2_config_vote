@@ -79,7 +79,6 @@ public void OnConfigsExecuted()
 	RegAdminCmdEx("sm_votecfg_reload", Cmd_Reload, ADMFLAG_ROOT, "Reload config file.");
 	RegConsoleCmdEx("sm_v", Cmd_Vote);
 	RegConsoleCmdEx("sm_vt", Cmd_Vote);
-	RegConsoleCmdEx("sm_vote", Cmd_Vote);
 	RegConsoleCmdEx("sm_votes", Cmd_Vote);
 }
 
@@ -386,9 +385,9 @@ void Init()
 		g_kvRoot.deleteThis();
 
 	char file[PLATFORM_MAX_PATH];
-	char g_sVoteFile[128];
-	GetConVarString(g_cvVoteFilePath, g_sVoteFile, sizeof(g_sVoteFile));
-	BuildPath(Path_SM, file, sizeof(file), g_sVoteFile);
+	char voteFilePath[PLATFORM_MAX_PATH];
+	g_cvVoteFilePath.GetString(voteFilePath, sizeof(voteFilePath));
+	BuildPath(Path_SM, file, sizeof(file), voteFilePath);
 
 	g_kvRoot = SourceKeyValues("");
 	g_kvRoot.UsesEscapeSequences(true);
