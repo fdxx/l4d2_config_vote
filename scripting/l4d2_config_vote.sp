@@ -6,7 +6,7 @@
 #include <l4d2_source_keyvalues>	// https://github.com/fdxx/l4d2_source_keyvalues
 #include <multicolors>
 
-#define VERSION "0.7"
+#define VERSION "0.8"
 #define COMMAND_MAX_LENGTH 511
 
 #define TEAMFLAGS_SPEC	2
@@ -38,7 +38,7 @@ SourceKeyValues
 	g_kvSelect[MAXPLAYERS+1],
 	g_kvRoot;
 
-ConVar g_cvVoteFilePath, g_cvAdminTeamFlags, g_cvPrintMsg;
+ConVar g_cvVoteFilePath, g_cvAdminTeamFlags, g_cvPrintMsg, g_cvPassMode;
 ConfigData g_cfgData[MAXPLAYERS+1];
 
 public Plugin myinfo = 
@@ -60,6 +60,7 @@ public void OnPluginStart()
 	g_cvVoteFilePath = CreateConVar("l4d2_config_vote_path", "data/l4d2_config_vote.kv", "Vote config file path.");
 	g_cvAdminTeamFlags = CreateConVar("l4d2_config_vote_adminteamflags", "1", "Admin bypass TeamFlags.");
 	g_cvPrintMsg = CreateConVar("l4d2_config_vote_printmsg", "1", "Whether print hint message to clients.");
+	g_cvPassMode = CreateConVar("l4d2_config_vote_passmode", "1", "Method of judging vote pass. 0=Vote Yes count > Vote No count. 1=Vote Yes count > Half of players count.");
 	g_cvVoteFilePath.AddChangeHook(OnCvarChanged);
 	// AutoExecConfig(true, "l4d2_config_vote");
 }
@@ -121,7 +122,7 @@ void ShowMenu(int client, SourceKeyValues kv, bool bBackButton = true)
 	}
 
 	menu.ExitBackButton = bBackButton;
-	menu.Display(client, 20);
+	menu.Display(client, MENU_TIME_FOREVER);
 }
 
 int MenuHandlerCB(Menu menu, MenuAction action, int client, int itemNum)
@@ -237,7 +238,8 @@ void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2
 		}
 		case VoteAction_End:
 		{
-			if (vote.YesCount > vote.PlayerCount/2)
+			bool voteResult = (g_cvPassMode.BoolValue) ? (vote.YesCount > vote.PlayerCount / 2) : (vote.YesCount > vote.NoCount);
+			if (voteResult)
 			{
 				vote.SetPass("加载中...");
 
