@@ -1,138 +1,892 @@
 "选择投票类型"
 {
-	"幸存者和特感回血"
-	{
-		"Type"			"ServerCommand"
-		"MenuTeamFlags"	"12"
-		"VoteTeamFlags"	"12"
-		"AdminOneVotePassed" "0"
-		"AdminOneVoteAgainst" "0"
-		"Description"	"幸存者和特感回血?"
-		"Command"		"sm_rehp sur;sm_rehp si"
-	}
-
 	"地图投票"
 	{
-		"Type"			"ExternalVote"
-		"MenuTeamFlags"	"12"
-		"Command"		"sm_votemap"
+		"Type"		"ExternalVote"
+		"Command"	"sm_chmap"
 	}
 
-	"服务器最大玩家数"
+	"更改难度"
 	{
-		"MenuTeamFlags" "14"
-
-		"6"
+		"简单"
 		{
-			"Type"			"ServerCommand"
-			"MenuTeamFlags"	"14"
-			"VoteTeamFlags"	"14"
-			"Description"	"服务器最大玩家数: 6 ?"
-			"Command"		"sm_cvar sv_maxplayers 6"
+			"Type"					"ServerCommand"
+			"AdminOneVotePassed"	"0"
+			"AdminOneVoteAgainst"	"1"
+			"Description"			"更改难度为 简单?"
+			"Command"				"sm_cvar z_difficulty Easy"
 		}
-		"7"
+		"普通"
 		{
-			"Type"			"ServerCommand"
-			"MenuTeamFlags"	"14"
-			"VoteTeamFlags"	"14"
-			"Description"	"服务器最大玩家数: 7 ?"
-			"Command"		"sm_cvar sv_maxplayers 7"
+			"Type"					"ServerCommand"
+			"AdminOneVotePassed"	"0"
+			"AdminOneVoteAgainst"	"1"
+			"Description"			"更改难度为 普通?"
+			"Command"				"sm_cvar z_difficulty Normal"
+		}
+		"高级"
+		{
+			"Type"					"ServerCommand"
+			"AdminOneVotePassed"	"0"
+			"AdminOneVoteAgainst"	"1"
+			"Description"			"更改难度为 高级?"
+			"Command"				"sm_cvar z_difficulty Hard"
+		}
+		"专家"
+		{
+			"Type"					"ServerCommand"
+			"AdminOneVotePassed"	"0"
+			"AdminOneVoteAgainst"	"1"
+			"Description"			"更改难度为 专家?"
+			"Command"				"sm_cvar z_difficulty Impossible"
 		}
 	}
 
-	"特感投票"
+	"更改模式"
 	{
-		"MenuTeamFlags" "12"
+		"官方模式"
+		{
+			"战役模式"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 战役模式?"
+				"Command"				"sm_cvar mp_gamemode coop;sm_restart"
+			}
+			"写实模式"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 写实模式?"
+				"Command"				"sm_cvar mp_gamemode realism;sm_restart"
+			}
+			"对抗模式"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 对抗模式?"
+				"Command"				"sm_cvar mp_gamemode versus;sm_restart"
+			}
+			"写实对抗"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 写实对抗?"
+				"Command"				"sm_cvar mp_gamemode mutation12;sm_restart"
+			}
+			"生还者模式"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 生还者模式?"
+				"Command"				"sm_cvar mp_gamemode survival;sm_restart"
+			}
+			"生还者对抗"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 生还者对抗?"
+				"Command"				"sm_cvar mp_gamemode mutation15;sm_restart"
+			}
+			"清道夫模式"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 清道夫模式?"
+				"Command"				"sm_cvar mp_gamemode scavenge;sm_restart"
+			}
+		}
+		"突变模式"
+		{
+			"特感速递"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 特感速递?"
+				"Command"				"sm_cvar mp_gamemode community1;sm_restart"
+			}
+			"感染季节"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 感染季节?"
+				"Command"				"sm_cvar mp_gamemode community2;sm_restart"
+			}
+			"死亡之门"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 死亡之门?"
+				"Command"				"sm_cvar mp_gamemode community5;sm_restart"
+			}
+			"枪枪爆头"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 枪枪爆头?"
+				"Command"				"sm_cvar mp_gamemode mutation2;sm_restart"
+			}
+			"血流不止"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 血流不止?"
+				"Command"				"sm_cvar mp_gamemode mutation3;sm_restart"
+			}
+			"绝境求生"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 绝境求生?"
+				"Command"				"sm_cvar mp_gamemode mutation4;sm_restart"
+			}
+			"铁人意志"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 铁人意志?"
+				"Command"				"sm_cvar mp_gamemode mutation8;sm_restart"
+			}
+			"侏儒卫队"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 侏儒卫队?"
+				"Command"				"sm_cvar mp_gamemode mutation9;sm_restart"
+			}
+			"无法近身"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 无法近身?"
+				"Command"				"sm_cvar mp_gamemode mutation14;sm_restart"
+			}
+			"猎人派对"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 猎人派对?"
+				"Command"				"sm_cvar mp_gamemode mutation16;sm_restart"
+			}
+			"骑师派对"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 骑师派对?"
+				"Command"				"sm_cvar mp_gamemode community3;sm_restart"
+			}
+			"没有救赎"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 没有救赎?"
+				"Command"				"sm_cvar mp_gamemode mutation11;sm_restart"
+			}
+			"清道肆虐"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 清道肆虐?"
+				"Command"				"sm_cvar mp_gamemode mutation13;sm_restart"
+			}
+			"失血对抗"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 失血对抗?"
+				"Command"				"sm_cvar mp_gamemode mutation18;sm_restart"
+			}
+			"坦克派对"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 坦克派对?"
+				"Command"				"sm_cvar mp_gamemode mutation19;sm_restart"
+			}
+			"孤身一人"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 孤身一人?"
+				"Command"				"sm_cvar mp_gamemode mutation1;sm_restart"
+			}
+			"孤胆枪手"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改模式为 孤胆枪手?"
+				"Command"				"sm_cvar mp_gamemode mutation17;sm_restart"
+			}
+		}
+		"match模式"
+		{
+			"Type"		"ExternalVote"
+			"Command"	"sm_chmatch"
+		}
+		"卸载当前match模式"
+		{
+			"Type"		"ExternalVote"
+			"Command"	"sm_rmatch"
+		}
+	}
+
+	"游戏设置"
+	{
+		"重启当前章节"
+		{
+			"Type"					"ServerCommand"
+			"MenuTeamFlags"			"14"
+			"VoteTeamFlags"			"14"
+			"AdminOneVotePassed"	"0"
+			"AdminOneVoteAgainst"	"1"
+			"Description"			"重启当前章节?"
+			"Command"				"sm_restart"
+		}
+
+		"后备弹药设置"
+		{
+			"SelectType"	"Single"
+
+			"开启2倍后备弹药"
+			{
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启2倍后备弹药?"
+				"Command"				"sm_mammo 2"
+			}
+			"开启3倍后备弹药"
+			{
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启3倍后备弹药?"
+				"Command"				"sm_mammo 3"
+			}
+			"开启无限后备弹药"
+			{
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启无限后备弹药?"
+				"Command"				"sm_mammo -1"
+			}
+			"关闭更多后备弹药"
+			{
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"关闭更多后备弹药?"
+				"Command"				"sm_mammo 0"
+			}
+		}
+
+		"黑枪提示设置"
+		{
+			"SelectType"	"Single"
+
+			"开启黑枪文字提示"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启黑枪文字提示?"
+				"Command"				"sm_cvar l4d_broadcast_ff 3;sm_cvar l4d_broadcast_hit 1"
+			}
+			"关闭黑枪文字提示"
+			{
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"关闭黑枪文字提示?"
+				"Command"				"sm_cvar l4d_broadcast_ff 0;sm_cvar l4d_broadcast_hit 0"
+			}
+		}
+
+		"血量显示设置"
+		{
+			"SelectType"	"Single"
+
+			"开启特感血量显示"
+			{
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启特感血量显示?"
+				"Command"				"sm_cvar l4d_broadcast_kill 1;sm_cvar l4d_infectedhp 1"
+			}
+			"关闭特感血量显示"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"关闭特感血量显示?"
+				"Command"				"sm_cvar l4d_broadcast_kill 0;sm_cvar l4d_infectedhp 0"
+			}
+		}
+
+		"最大人数设置"
+		{
+			"4人"
+			{
+				"Type"		"ExternalVote"
+				"Command"	"sm_slots 4"
+			}
+			"8人"
+			{
+				"Type"		"ExternalVote"
+				"Command"	"sm_slots 8"
+			}
+			"12人"
+			{
+				"Type"		"ExternalVote"
+				"Command"	"sm_slots 12"
+			}
+			"16人"
+			{
+				"Type"		"ExternalVote"
+				"Command"	"sm_slots 16"
+			}
+			"20人"
+			{
+				"Type"		"ExternalVote"
+				"Command"	"sm_slots 20"
+			}
+			"24人"
+			{
+				"Type"		"ExternalVote"
+				"Command"	"sm_slots 24"
+			}
+			"28人"
+			{
+				"Type"		"ExternalVote"
+				"Command"	"sm_slots 28"
+			}
+		}
+	}
+
+	"友伤设置"
+	{
+		"友伤"
+		{
+			"SelectType"	"Single"
+
+			"开启队友伤害"
+			{
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启队友伤害?"
+				"Command"				"sm_noff 1;exec vote/reflect_ff_off.cfg"
+			}
+			"关闭队友伤害"
+			{
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"关闭队友伤害?"
+				"Command"				"sm_noff 0"
+			}
+		}
+		"反伤"
+		{
+			"SelectType"	"Single"
+
+			"开启反射友伤"
+			{
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启反射友伤?"
+				"Command"				"sm_noff 1;exec vote/reflect_ff_on.cfg"
+			}
+			"关闭反射友伤"
+			{
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"MenuTeamFlags"			"14"
+				"VoteTeamFlags"			"14"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"关闭反射友伤?"
+				"Command"				"exec vote/reflect_ff_off.cfg"
+			}
+		}
+	}
+
+	"人机设置"
+	{
+		"踢出所有电脑"
+		{
+			"Type"					"ServerCommand"
+			"MenuTeamFlags"			"14"
+			"VoteTeamFlags"			"14"
+			"AdminOneVotePassed"	"0"
+			"AdminOneVoteAgainst"	"1"
+			"Description"			"踢出所有电脑?"
+			"Command"				"sm_kb"
+		}
+	}
+
+	"特感设置"
+	{
+		"杀特回血"
+		{
+			"SelectType"	"Single"
+
+			"开启击杀特感回复 1 血量"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启击杀特感回复 1 血量?"
+				"Command"				"exec vote/kill_si_restore_health_1.cfg"
+			}
+			"开启击杀特感回复 2 血量"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启击杀特感回复 2 血量?"
+				"Command"				"exec vote/kill_si_restore_health_2.cfg"
+			}
+			"开启击杀特感回复 3 血量"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启击杀特感回复 3 血量?"
+				"Command"				"exec vote/kill_si_restore_health_3.cfg"
+			}
+			"开启击杀特感回复 5 血量"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启击杀特感回复 5 血量?"
+				"Command"				"exec vote/kill_si_restore_health_5.cfg"
+			}
+			"开启击杀特感回复 10 血量"
+			{
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"开启击杀特感回复 10 血量?"
+				"Command"				"exec vote/kill_si_restore_health_10.cfg"
+			}
+			"关闭击杀特感回复血量"
+			{
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"关闭击杀特感回复血量?"
+				"Command"				"exec vote/kill_si_restore_health_off.cfg"
+			}
+		}
 
 		"特感数量"
 		{
-			"MenuTeamFlags" "12"
+			"SelectType"	"CvarTracking"
+			"CvarName"		"l4d2_si_spawn_control_max_specials"
+			"CvarType"		"int"
 
-			"1 特"
+			"1特"
 			{
-				"Type"			"ServerCommand"
-				"MenuTeamFlags"	"12"
-				"VoteTeamFlags"	"12"
-				"Description"	"特感数量: 1 特?"
-				"Command"		"exec \"sivote/si_limit/1si.cfg\""
+				"CvarMatch"				"1"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 1特?"
+				"Command"				"exec vote/special_limit_1.cfg;sm_cvar l4d2_si_spawn_control_max_specials 1"
 			}
-			"2 特"
+			"2特"
 			{
-				"Type"			"ServerCommand"
-				"MenuTeamFlags"	"12"
-				"VoteTeamFlags"	"12"
-				"Description"	"特感数量: 2 特?"
-				"Command"		"exec \"sivote/si_limit/2si.cfg\""
+				"CvarMatch"				"2"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 2特?"
+				"Command"				"exec vote/special_limit_1.cfg;sm_cvar l4d2_si_spawn_control_max_specials 2"
+			}
+			"3特"
+			{
+				"CvarMatch"				"3"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 3特?"
+				"Command"				"exec vote/special_limit_1.cfg;sm_cvar l4d2_si_spawn_control_max_specials 3"
+			}
+			"4特"
+			{
+				"CvarMatch"				"4"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 4特?"
+				"Command"				"exec vote/special_limit_1.cfg;sm_cvar l4d2_si_spawn_control_max_specials 4"
+			}
+			"5特"
+			{
+				"CvarMatch"				"5"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 5特?"
+				"Command"				"exec vote/special_limit_1.cfg;sm_cvar l4d2_si_spawn_control_max_specials 5"
+			}
+			"6特"
+			{
+				"CvarMatch"				"6"
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 6特?"
+				"Command"				"exec vote/special_limit_1.cfg;sm_cvar l4d2_si_spawn_control_max_specials 6"
+			}
+			"7特"
+			{
+				"CvarMatch"				"7"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 7特?"
+				"Command"				"exec vote/special_limit_2.cfg;sm_cvar l4d2_si_spawn_control_max_specials 7"
+			}
+			"8特"
+			{
+				"CvarMatch"				"8"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 8特?"
+				"Command"				"exec vote/special_limit_2.cfg;sm_cvar l4d2_si_spawn_control_max_specials 8"
+			}
+			"9特"
+			{
+				"CvarMatch"				"9"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 9特?"
+				"Command"				"exec vote/special_limit_2.cfg;sm_cvar l4d2_si_spawn_control_max_specials 9"
+			}
+			"10特"
+			{
+				"CvarMatch"				"10"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 10特?"
+				"Command"				"exec vote/special_limit_2.cfg;sm_cvar l4d2_si_spawn_control_max_specials 10"
+			}
+			"11特"
+			{
+				"CvarMatch"				"11"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 11特?"
+				"Command"				"exec vote/special_limit_2.cfg;sm_cvar l4d2_si_spawn_control_max_specials 11"
+			}
+			"12特"
+			{
+				"CvarMatch"				"12"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 12特?"
+				"Command"				"exec vote/special_limit_2.cfg;sm_cvar l4d2_si_spawn_control_max_specials 12"
+			}
+			"13特"
+			{
+				"CvarMatch"				"13"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 13特?"
+				"Command"				"exec vote/special_limit_3.cfg;sm_cvar l4d2_si_spawn_control_max_specials 13"
+			}
+			"14特"
+			{
+				"CvarMatch"				"14"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 14特?"
+				"Command"				"exec vote/special_limit_3.cfg;sm_cvar l4d2_si_spawn_control_max_specials 14"
+			}
+			"15特"
+			{
+				"CvarMatch"				"15"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 15特?"
+				"Command"				"exec vote/special_limit_3.cfg;sm_cvar l4d2_si_spawn_control_max_specials 15"
+			}
+			"16特"
+			{
+				"CvarMatch"				"16"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 16特?"
+				"Command"				"exec vote/special_limit_3.cfg;sm_cvar l4d2_si_spawn_control_max_specials 16"
+			}
+			"17特"
+			{
+				"CvarMatch"				"17"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 17特?"
+				"Command"				"exec vote/special_limit_3.cfg;sm_cvar l4d2_si_spawn_control_max_specials 17"
+			}
+			"18特"
+			{
+				"CvarMatch"				"18"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感数量为 18特?"
+				"Command"				"exec vote/special_limit_3.cfg;sm_cvar l4d2_si_spawn_control_max_specials 18"
 			}
 		}
 
-		"特感刷新时间"
+		"特感时间"
 		{
-			"MenuTeamFlags" "12"
+			"SelectType"	"CvarTracking"
+			"CvarName"		"l4d2_si_spawn_control_spawn_time"
+			"CvarType"		"float"
 
-			"1 秒"
+			"2秒"
 			{
-				"Type"			"ServerCommand"
-				"MenuTeamFlags"	"12"
-				"VoteTeamFlags"	"12"
-				"Description"	"特感刷新时间: 1 秒?"
-				"Command"		"sm_cvar l4d2_si_spawn_control_spawn_time 1"
+				"CvarMatch"				"2.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 2秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 2.0"
 			}
-			"2 秒"
+			"4秒"
 			{
-				"Type"			"ServerCommand"
-				"MenuTeamFlags"	"12"
-				"VoteTeamFlags"	"12"
-				"Description"	"特感刷新时间: 2 秒?"
-				"Command"		"sm_cvar l4d2_si_spawn_control_spawn_time 2"
+				"CvarMatch"				"4.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 4秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 4.0"
+			}
+			"6秒"
+			{
+				"CvarMatch"				"6.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 6秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 6.0"
+			}
+			"8秒"
+			{
+				"CvarMatch"				"8.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 8秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 8.0"
+			}
+			"10秒"
+			{
+				"CvarMatch"				"10.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 10秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 10.0"
+			}
+			"12秒"
+			{
+				"CvarMatch"				"12.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 12秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 12.0"
+			}
+			"14秒"
+			{
+				"CvarMatch"				"14.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 14秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 14.0"
+			}
+			"16秒"
+			{
+				"CvarMatch"				"16.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 16秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 16.0"
+			}
+			"18秒"
+			{
+				"CvarMatch"				"18.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 18秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 18.0"
+			}
+			"20秒"
+			{
+				"CvarMatch"				"20.0"
+				"Selected"				"1"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 20秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 20.0"
+			}
+			"22秒"
+			{
+				"CvarMatch"				"22.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 22秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 22.0"
+			}
+			"24秒"
+			{
+				"CvarMatch"				"24.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 24秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 24.0"
+			}
+			"26秒"
+			{
+				"CvarMatch"				"26.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 26秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 26.0"
+			}
+			"28秒"
+			{
+				"CvarMatch"				"28.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 28秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 28.0"
+			}
+			"30秒"
+			{
+				"CvarMatch"				"30.0"
+				"Type"					"ServerCommand"
+				"AdminOneVotePassed"	"0"
+				"AdminOneVoteAgainst"	"1"
+				"Description"			"更改特感刷新时间为 30秒?"
+				"Command"				"sm_cvar l4d2_si_spawn_control_spawn_time 30.0"
 			}
 		}
 
-		"其他特感投票"
+		"特感增强"
 		{
-			"MenuTeamFlags" "12"
-
-			"特感攻击性补丁"
+			"特感连跳"
 			{
-				"MenuTeamFlags" "4"
+				"SelectType"	"Single"
 
-				"开启"
+				"开启特感连跳"
 				{
-					"Type"			"ServerCommand"
-					"MenuTeamFlags"	"4"
-					"VoteTeamFlags"	"4"
-					"Description"	"特感攻击性补丁: 开启?"
-					"Command"		"sm_cvar aggresive_specials_patch_enable 1"
+					"Selected"				"1"
+					"Type"					"ServerCommand"
+					"AdminOneVotePassed"	"0"
+					"AdminOneVoteAgainst"	"1"
+					"Description"			"开启特感连跳?"
+					"Command"				"sm_cvar ai_boomer_bhop 1;sm_cvar ai_spitter_bhop 1;sm_cvar ai_charger_bhop 1"
 				}
-				"关闭"
+				"关闭特感连跳"
 				{
-					"Type"			"ServerCommand"
-					"MenuTeamFlags"	"4"
-					"VoteTeamFlags"	"4"
-					"Description"	"特感攻击性补丁: 关闭?"
-					"Command"		"sm_cvar aggresive_specials_patch_enable 0"
+					"Type"					"ServerCommand"
+					"AdminOneVotePassed"	"0"
+					"AdminOneVoteAgainst"	"1"
+					"Description"			"关闭特感连跳?"
+					"Command"				"sm_cvar ai_boomer_bhop 0;sm_cvar ai_spitter_bhop 0;sm_cvar ai_charger_bhop 0"
 				}
 			}
-
-			"击杀回血"
+			"Tank连跳"
 			{
-				"MenuTeamFlags" "12"
+				"SelectType"	"Single"
 
-				"击杀特感回1血"
+				"开启Tank连跳"
 				{
-					"Type"			"ServerCommand"
-					"MenuTeamFlags"	"12"
-					"VoteTeamFlags"	"12"
-					"Description"	"击杀特感回 1 血?"
-					"Command"		"exec \"sivote/rehp/1.cfg\""
+					"Selected"				"1"
+					"Type"					"ServerCommand"
+					"AdminOneVotePassed"	"0"
+					"AdminOneVoteAgainst"	"1"
+					"Description"			"开启Tank连跳?"
+					"Command"				"sm_cvar ai_tank_bhop 1"
 				}
-				"击杀特感回2血"
+			
+				"关闭Tank连跳"
 				{
-					"Type"			"ServerCommand"
-					"MenuTeamFlags"	"12"
-					"VoteTeamFlags"	"12"
-					"Description"	"击杀特感回 2 血?"
-					"Command"		"exec \"sivote/rehp/2.cfg\""
+					"Type"					"ServerCommand"
+					"AdminOneVotePassed"	"0"
+					"AdminOneVoteAgainst"	"1"
+					"Description"			"关闭Tank连跳?"
+					"Command"				"sm_cvar ai_tank_bhop 0"
 				}
 			}
 		}
