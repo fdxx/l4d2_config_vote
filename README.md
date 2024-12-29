@@ -21,6 +21,31 @@ Generate a vote menu from a configuration file and vote it.
 - `ExternalVote`：Call vote command provided by other plugin after menu selection. Valid item for this type：**MenuTeamFlags**, **Command**.
 - `CheatCommand`：Execute server cheat command after vote is passed.
 
+### SelectType (Optional)
+If this property is set on one node, then all of it's first level sub nodes will show a selected icon.
+- `Single`：If one config's vote is passed, this node's icon will be set to selected, and all the other same level nodes' icon will be set to unselected.
+- `Multiple`：If one config's vote is passed, this node's icon will be set to it's opposite.
+- `CvarTracking`：Whether showing the selected icon depends on a specified cvar value.
+
+### Selected (Optional)
+This property is valid only when **parent level** node's SelectType is specified to `Single` or `Multiple`.
+Marking this node as default selected.
+
+### CvarName (Optional)
+This property is valid only when **this level** node's SelectType is specified to `CvarTracking`.
+Specifying the cvar name to track.
+
+### CvarType (Optional)
+This property is valid only when **this level** node's SelectType is specified to `CvarTracking`.
+Specifying the cvar value datatype.
+- `int`：Indicate the cvar value is a int type.
+- `float`：Indicate the cvar value is a float type.
+- `string`：Indicate the cvar value is a string type.
+
+### CvarMatch (Optional)
+This property is valid only when **parent level** node's SelectType is specified to `CvarTracking`, and **parent level** node's CvarName and CvarType is specified correctly.
+Specifying the value of this vote config, matching the specified cvar value.
+
 ### MenuCustomFlags (Optional)
 Whether clients can see the menu and initiate a vote, based on custom rules. default value: "\<Empty String\>" (no limits).
 #### Description:

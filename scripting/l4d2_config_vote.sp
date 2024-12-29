@@ -7,7 +7,7 @@
 #include <l4d2_source_keyvalues>	// https://github.com/fdxx/l4d2_source_keyvalues
 #include <multicolors>
 
-#define VERSION "0.9"
+#define VERSION "1.0"
 #define CUSTOM_FLAG_LIST_MAX_SIZE 32
 #define CUSTOM_FLAG_MAX_LENGTH 32
 #define COMMAND_MAX_LENGTH 511
@@ -27,6 +27,14 @@
 #define TEAMFLAGS_SUR       4
 #define TEAMFLAGS_INF       8
 #define TEAMFLAGS_DEFAULT   (TEAMFLAGS_SPEC | TEAMFLAGS_SUR | TEAMFLAGS_INF)
+
+enum SelectType
+{
+	SelectType_NotFound = 0,
+	SelectType_Single,
+	SelectType_Multiple,
+	SelectType_CvarTracking,
+}
 
 enum ConfigType
 {
@@ -52,15 +60,17 @@ enum struct ConfigData
 
 SourceKeyValues
 	g_kvSelect[MAXPLAYERS + 1],
+	g_kvSelectSub[MAXPLAYERS + 1],
 	g_kvRoot;
 
-ConVar g_cvVoteFilePath, g_cvMenuCustomFlags, g_cvAdminTeamFlags, g_cvPrintMsg, g_cvPassMode;
+ConVar g_cvVoteFilePath, g_cvMenuCustomFlags, g_cvAdminTeamFlags, g_cvPrintMsg, g_cvPassMode, g_cvIconSelected, g_cvIconUnselected;
 ConfigData g_cfgData[MAXPLAYERS + 1];
+char g_iconSelected[8], g_iconUnselected[8];
 
 public Plugin myinfo = 
 {
 	name = "L4D2 Config Vote",
-	author = "fdxx",
+	author = "fdxx, HatsuneImagine",
 	version = VERSION,
 }
 
@@ -78,6 +88,8 @@ public void OnPluginStart()
 	g_cvAdminTeamFlags = CreateConVar("l4d2_config_vote_adminteamflags", "1", "Admin bypass TeamFlags.");
 	g_cvPrintMsg = CreateConVar("l4d2_config_vote_printmsg", "1", "Whether print hint message to clients.");
 	g_cvPassMode = CreateConVar("l4d2_config_vote_passmode", "1", "Method of judging vote pass. 0=Vote Yes count > Vote No count. 1=Vote Yes count > Half of players count.");
+	g_cvIconSelected = CreateConVar("l4d2_config_vote_icon_selected", "[√]", "Selected Icon.");
+	g_cvIconUnselected = CreateConVar("l4d2_config_vote_icon_unselected", "[  ]", "Unselected Icon.");
 	g_cvVoteFilePath.AddChangeHook(OnCvarChanged);
 	// AutoExecConfig(true, "l4d2_config_vote");
 }
@@ -142,6 +154,49 @@ void ShowMenu(int client, SourceKeyValues kv, bool bBackButton = true)
 			continue;
 
 		sub.GetName(display, sizeof(display));
+		SelectType selectType = GetSelectType(kv);
+		switch (selectType)
+		{
+			case SelectType_Single,SelectType_Multiple:
+			{
+				Format(display, sizeof(display), "%s %s", display, sub.GetInt("Selected", 0) > 0 ? g_iconSelected : g_iconUnselected);
+			}
+			case SelectType_CvarTracking:
+			{
+				char cvarName[64], cvarType[8];
+				kv.GetString("CvarName", cvarName, sizeof(cvarName));
+				kv.GetString("CvarType", cvarType, sizeof(cvarType));
+				ConVar cv = FindConVar(cvarName);
+				if (cv != null)
+				{
+					if (!strcmp(cvarType, "int", false))
+					{
+						int cvarValue = cv.IntValue;
+						int cvarMatch = sub.GetInt("CvarMatch", -1);
+						Format(display, sizeof(display), "%s %s", display, cvarValue == cvarMatch ? g_iconSelected : g_iconUnselected);
+					}
+					else if (!strcmp(cvarType, "float", false))
+					{
+						float cvarValue = cv.FloatValue;
+						float cvarMatch = sub.GetFloat("CvarMatch", -1.0);
+						Format(display, sizeof(display), "%s %s", display, cvarValue == cvarMatch ? g_iconSelected : g_iconUnselected);
+					}
+					else if (!strcmp(cvarType, "string", false))
+					{
+						char cvarValue[32], cvarMatch[32];
+						cv.GetString(cvarValue, sizeof(cvarValue));
+						sub.GetString("CvarMatch", cvarMatch, sizeof(cvarMatch));
+						Format(display, sizeof(display), "%s %s", display, !strcmp(cvarValue, cvarMatch, false) ? g_iconSelected : g_iconUnselected);
+					}
+				}
+				delete cv;
+			}
+			default:
+			{
+				// do nothing
+			}
+		}
+
 		IntToString(view_as<int>(sub), sKv, sizeof(sKv));
 		menu.AddItem(sKv, display);
 	}
@@ -160,6 +215,7 @@ int MenuHandlerCB(Menu menu, MenuAction action, int client, int itemNum)
 			menu.GetItem(itemNum, sKv, sizeof(sKv));
 
 			SourceKeyValues kv = view_as<SourceKeyValues>(StringToInt(sKv));
+			g_kvSelectSub[client] = kv;
 			ConfigType configType = GetConfigType(kv);
 
 			switch (configType)
@@ -298,6 +354,37 @@ void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2
 						SetCommandFlags(cmd, iFlags);
 					}
 				}
+
+				SourceKeyValues parentKv = g_kvSelect[vote.Initiator];
+				SourceKeyValues kv = g_kvSelectSub[vote.Initiator];
+				SelectType selectType = GetSelectType(parentKv);
+				switch (selectType)
+				{
+					case SelectType_Single:
+					{
+						// set this node's <Selected> to 1, and set other same level nodes' <Selected> to 0
+						for (SourceKeyValues sub = parentKv.GetFirstTrueSubKey(); sub; sub = sub.GetNextTrueSubKey())
+						{
+							if (view_as<int>(sub) == view_as<int>(kv))
+								sub.SetInt("Selected", 1);
+							else
+								sub.SetInt("Selected", 0);
+						}
+					}
+					case SelectType_Multiple:
+					{
+						// set this node's <Selected> to it's opposite
+						kv.SetInt("Selected", (kv.GetInt("Selected", 0) + 1) % 2);
+					}
+					case SelectType_CvarTracking:
+					{
+						// do nothing
+					}
+					default:
+					{
+						// do nothing
+					}
+				}
 			}
 			else
 				vote.SetFail();
@@ -380,6 +467,23 @@ SourceKeyValues GetPreviousNode(SourceKeyValues kvRoot, SourceKeyValues kvTarget
 		}
 	}
 	return view_as<SourceKeyValues>(0);
+}
+
+SelectType GetSelectType(SourceKeyValues kv)
+{
+	char type[32];
+	kv.GetString("SelectType", type, sizeof(type));
+
+	if (!strcmp(type, "Single", false))
+		return SelectType_Single;
+
+	if (!strcmp(type, "Multiple", false))
+		return SelectType_Multiple;
+
+	if (!strcmp(type, "CvarTracking", false))
+		return SelectType_CvarTracking;
+
+	return SelectType_NotFound;
 }
 
 ConfigType GetConfigType(SourceKeyValues kv)
@@ -471,6 +575,9 @@ void Init()
 	g_kvRoot.UsesEscapeSequences(true);
 	if (!g_kvRoot.LoadFromFile(file))
 		SetFailState("Failed to load %s", file);
+
+	g_cvIconSelected.GetString(g_iconSelected, sizeof(g_iconSelected));
+	g_cvIconUnselected.GetString(g_iconUnselected, sizeof(g_iconUnselected));
 }
 
 public void OnPluginEnd()
