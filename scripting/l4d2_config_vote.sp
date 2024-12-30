@@ -34,6 +34,7 @@ enum SelectType
 	SelectType_Single,
 	SelectType_Multiple,
 	SelectType_CvarTracking,
+	SelectType_PluginTracking,
 }
 
 enum ConfigType
@@ -60,7 +61,7 @@ enum struct ConfigData
 
 SourceKeyValues
 	g_kvSelect[MAXPLAYERS + 1],
-	g_kvSelectSub[MAXPLAYERS + 1],
+	g_kvSelectLastVotedSub,
 	g_kvRoot;
 
 ConVar g_cvVoteFilePath, g_cvMenuCustomFlags, g_cvAdminTeamFlags, g_cvPrintMsg, g_cvPassMode, g_cvIconSelected, g_cvIconUnselected;
@@ -157,7 +158,7 @@ void ShowMenu(int client, SourceKeyValues kv, bool bBackButton = true)
 		SelectType selectType = GetSelectType(kv);
 		switch (selectType)
 		{
-			case SelectType_Single,SelectType_Multiple:
+			case SelectType_Single, SelectType_Multiple:
 			{
 				Format(display, sizeof(display), "%s %s", display, sub.GetInt("Selected", 0) > 0 ? g_iconSelected : g_iconUnselected);
 			}
@@ -191,6 +192,14 @@ void ShowMenu(int client, SourceKeyValues kv, bool bBackButton = true)
 				}
 				delete cv;
 			}
+			case SelectType_PluginTracking:
+			{
+				char pluginMatch[64];
+				sub.GetString("PluginMatch", pluginMatch, sizeof(pluginMatch));
+				Handle pg = FindPluginByFile(pluginMatch);
+				Format(display, sizeof(display), "%s %s", display, pg != INVALID_HANDLE ? g_iconSelected : g_iconUnselected);
+				delete pg;
+			}
 			default:
 			{
 				// do nothing
@@ -215,7 +224,6 @@ int MenuHandlerCB(Menu menu, MenuAction action, int client, int itemNum)
 			menu.GetItem(itemNum, sKv, sizeof(sKv));
 
 			SourceKeyValues kv = view_as<SourceKeyValues>(StringToInt(sKv));
-			g_kvSelectSub[client] = kv;
 			ConfigType configType = GetConfigType(kv);
 
 			switch (configType)
@@ -259,6 +267,8 @@ void StartVote(int client, SourceKeyValues kv, ConfigType type)
 		CPrintToChat(client, "{lightgreen}投票正在进行中, 暂不能发起新的投票.");
 		return;
 	}
+
+	g_kvSelectLastVotedSub = kv;
 
 	g_cfgData[client].type = type;
 	g_cfgData[client].voteTeamFlags = kv.GetInt("VoteTeamFlags", TEAMFLAGS_DEFAULT);
@@ -355,8 +365,8 @@ void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2
 					}
 				}
 
-				SourceKeyValues parentKv = g_kvSelect[vote.Initiator];
-				SourceKeyValues kv = g_kvSelectSub[vote.Initiator];
+				SourceKeyValues kv = g_kvSelectLastVotedSub;
+				SourceKeyValues parentKv = GetPreviousNode(g_kvRoot, g_kvSelectLastVotedSub);
 				SelectType selectType = GetSelectType(parentKv);
 				switch (selectType)
 				{
@@ -364,19 +374,14 @@ void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2
 					{
 						// set this node's <Selected> to 1, and set other same level nodes' <Selected> to 0
 						for (SourceKeyValues sub = parentKv.GetFirstTrueSubKey(); sub; sub = sub.GetNextTrueSubKey())
-						{
-							if (view_as<int>(sub) == view_as<int>(kv))
-								sub.SetInt("Selected", 1);
-							else
-								sub.SetInt("Selected", 0);
-						}
+							sub.SetInt("Selected", sub == kv ? 1 : 0);
 					}
 					case SelectType_Multiple:
 					{
 						// set this node's <Selected> to it's opposite
 						kv.SetInt("Selected", (kv.GetInt("Selected", 0) + 1) % 2);
 					}
-					case SelectType_CvarTracking:
+					case SelectType_CvarTracking, SelectType_PluginTracking:
 					{
 						// do nothing
 					}
@@ -482,6 +487,9 @@ SelectType GetSelectType(SourceKeyValues kv)
 
 	if (!strcmp(type, "CvarTracking", false))
 		return SelectType_CvarTracking;
+
+	if (!strcmp(type, "PluginTracking", false))
+		return SelectType_PluginTracking;
 
 	return SelectType_NotFound;
 }
