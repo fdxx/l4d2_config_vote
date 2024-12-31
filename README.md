@@ -9,8 +9,16 @@ Generate a vote menu from a configuration file and vote it.
 - [l4d2_source_keyvalues](https://github.com/fdxx/l4d2_source_keyvalues)  
   
 ## Cmd and Cvar
+- `l4d2_config_vote_path`: Console Variables, Menu vote config file path.  
+- `l4d2_config_vote_menucustomflags`: Console Variables, Menu custom rules of showing.  
 - `l4d2_config_vote_adminteamflags`: Console Variables, Admin bypass `*TeamFlags`.  
+- `l4d2_config_vote_printmsg`: Console Variables, Whether print hint message to clients.  
+- `l4d2_config_vote_passmode`: Console Variables, Method of judging vote pass. 0=Vote Yes count > Vote No count. 1=Vote Yes count > Half of players count.  
+- `l4d2_config_vote_icon_selected`: Console Variables, Selected Icon (Default: `[√]`).  
+- `l4d2_config_vote_icon_unselected`: Console Variables, Unselected Icon (Default: `[  ]`).  
 - `sm_votecfg_reload`: Console Commands (admin), Reload config file.  
+- `sm_v`: Console Commands, Open vote menu.  
+- `sm_vt`: Console Commands, Open vote menu.  
 - `sm_votes`: Console Commands, Open vote menu.  
   
 ## Config file
@@ -44,7 +52,7 @@ Specifying the cvar value datatype.
 - `string`：Indicate the cvar value is a string type.  
   
 ### CvarMatch (Optional)
-This property is valid only when **parent level** node's SelectType is specified to `CvarTracking`, and **parent level** node's CvarName and CvarType is specified correctly.  
+This property is valid only when **parent level** node's SelectType is specified to `CvarTracking`, and **parent level** node's CvarName and CvarType are specified correctly.  
 Specifying the voting config value, which matches the specified cvar value, used to show a selected icon.  
   
 ### PluginMatch (Optional)
