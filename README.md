@@ -29,6 +29,12 @@ Generate a vote menu from a configuration file and vote it.
 - `ExternalVote`：Call vote command provided by other plugin after menu selection. Valid item for this type：**MenuTeamFlags**, **Command**.  
 - `CheatCommand`：Execute server cheat command after vote is passed.  
   
+### Description
+Info displayed after initiating a vote.  
+  
+### Command
+Command executed after the vote is passed.  
+  
 ### SelectType (Optional)
 If this property is set on one node, then all of it's first level sub nodes will show a selected icon.  
 - `Single`：If one config's vote is passed, this node's icon will be set to selected, and all the other same level nodes' icon will be set to unselected.  
@@ -91,9 +97,3 @@ Whether to enable admin one vote to passed. default value: 1 (enable).
   
 ### AdminOneVoteAgainst (Optional)
 Whether to enable admin one vote to against. default value: 1 (enable).  
-  
-### Description
-Info displayed after initiating a vote.  
-  
-### Command
-Command executed after the vote is passed.  
