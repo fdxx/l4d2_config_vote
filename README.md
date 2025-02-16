@@ -3,7 +3,7 @@ Generate a vote menu from a configuration file and vote it.
 
 ## Require
 - L4D2 dedicated server
-- SourceMod 1.11
+- SourceMod 1.12+
 - [l4d2_nativevote](https://github.com/fdxx/l4d2_nativevote)
 - [l4d2_source_keyvalues](https://github.com/fdxx/l4d2_source_keyvalues)
 
