@@ -6,7 +6,7 @@
 #include <l4d2_source_keyvalues>	// https://github.com/fdxx/l4d2_source_keyvalues
 #include <multicolors>
 
-#define VERSION "0.8"
+#define VERSION "0.9"
 #define COMMAND_MAX_LENGTH 511
 
 #define TEAMFLAGS_SPEC	2
@@ -62,6 +62,8 @@ public void OnPluginStart()
 	g_cvPrintMsg = CreateConVar("l4d2_config_vote_printmsg", "1", "Whether print hint message to clients.");
 	g_cvPassMode = CreateConVar("l4d2_config_vote_passmode", "1", "Method of judging vote pass. 0=Vote Yes count > Vote No count. 1=Vote Yes count > Half of players count.");
 	g_cvVoteFilePath.AddChangeHook(OnCvarChanged);
+
+	LoadTranslations("l4d2_config_vote.phrases.txt");
 	// AutoExecConfig(true, "l4d2_config_vote");
 }
 
@@ -175,7 +177,7 @@ void StartVote(int client, SourceKeyValues kv, ConfigType type)
 {
 	if (!L4D2NativeVote_IsAllowNewVote())
 	{
-		CPrintToChat(client, "{lightgreen}投票正在进行中, 暂不能发起新的投票.");
+		CPrintToChat(client, "%t", "_NotAllowNewVote");
 		return;
 	}
 
@@ -205,7 +207,7 @@ void StartVote(int client, SourceKeyValues kv, ConfigType type)
 	}
 
 	if (!vote.DisplayVote(iClients, iPlayerCount, 20))
-		LogMessage("发起投票失败");
+		LogMessage("Failed to initiate voting.");
 }
 
 void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2)
@@ -215,12 +217,12 @@ void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2
 		case VoteAction_Start:
 		{
 			if (g_cvPrintMsg.BoolValue)
-				CPrintToChatAll("{blue}[Vote] {olive}%N {default}发起了一个投票.", param1);
+				CPrintToChatAll("%t", "_InitiatedVoting", param1);
 		}
 		case VoteAction_PlayerVoted:
 		{
 			if (g_cvPrintMsg.BoolValue)
-				CPrintToChatAll("{olive}%N {default}已投票", param1);
+				CPrintToChatAll("%t", "_PlayerVoted");
 
 			if (!CheckCommandAccess(param1, "sm_admin", ADMFLAG_ROOT))
 				return;
@@ -241,7 +243,7 @@ void Vote_Handler(L4D2NativeVote vote, VoteAction action, int param1, int param2
 			bool voteResult = (g_cvPassMode.BoolValue) ? (vote.YesCount > vote.PlayerCount / 2) : (vote.YesCount > vote.NoCount);
 			if (voteResult)
 			{
-				vote.SetPass("加载中...");
+				vote.SetPass("Loading...");
 
 				switch (g_cfgData[vote.Initiator].type)
 				{

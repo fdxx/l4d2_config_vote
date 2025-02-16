@@ -1,0 +1,19 @@
+"Phrases"
+{
+	"_NotAllowNewVote"
+	{
+		"en"    "Voting is in progress. New voting cannot be initiated at this time."
+		"chi"	"{lightgreen}投票正在进行中, 暂不能发起新的投票."
+	}
+	"_InitiatedVoting"
+	{
+		"en"    "%N initiated a vote"
+		"chi"	"{blue}[Vote] {olive}%N {default}发起了一个投票"
+	}
+
+	"_PlayerVoted"
+	{
+		"en"    "A player has voted."
+		"chi"	"{lightgreen}玩家已投票"
+	}
+}
